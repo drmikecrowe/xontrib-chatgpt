@@ -8,7 +8,12 @@ from typing import TextIO
 from xonsh.built_ins import XSH
 from xonsh.tools import indent
 from xonsh.contexts import Block
-from xonsh.lazyasd import LazyObject
+
+try:
+    from xonsh.lib.lazyasd import LazyObject
+except ImportError:
+    from xonsh.lazyasd import LazyObject
+
 from xonsh.ansi_colors import ansi_partial_color_format
 from openai import OpenAIError, OpenAI
 
@@ -37,7 +42,7 @@ Allows for communication with ChatGPT from the xonsh shell.
 
 This class can be assigned to a variable and used to have a continuous
     conversation with ChatGPT.
-Alternatively, an alias 'chatgpt' is automatically registered 
+Alternatively, an alias 'chatgpt' is automatically registered
     when the xontrib is loaded, which can be used to have one-off conversations.
 
 Args:
@@ -52,13 +57,13 @@ Usage:
     >>> gpt = ChatGPT()
     >>> with! gpt:
             [text] # text will be sent to ChatGPT
-    
+
     # With a ChatGPT instance and an alias
     >>> gpt = ChatGPT('gpt')
     >>> gpt [text] # text will be sent to ChatGPT
     >>> with! gpt:
             [text] # text will be sent to ChatGPT
-    
+
     # Get Help
     >>> chatgpt? # With default alias
     >>> gpt = ChatGPT()
